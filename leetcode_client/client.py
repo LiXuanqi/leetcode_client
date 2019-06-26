@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import argparse
 
 LEETCODE_URLS = {
         'base': 'https://leetcode.com',
@@ -124,7 +125,11 @@ class Problem:
         self.frequency = rawData['frequency']
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--username', help='leetcode username')
+    parser.add_argument('--password', help='leetcode password')
+    args = parser.parse_args()
     client = LeetCodeClient()
-    res = client.login()
+    res = client.login(args.username, args.password)
     print(client.getProblems())
     client.getProblemBySlug('find-in-mountain-array')
